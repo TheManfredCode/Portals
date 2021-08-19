@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(ISceneLoader))]
 public class WinAnimation : MonoBehaviour
 {
     [SerializeField] private WinCondition _winCondition;
@@ -15,8 +15,9 @@ public class WinAnimation : MonoBehaviour
     [SerializeField] private float _winImageMoveDuration;
     [SerializeField] private float _winImageShowTime;
     
-    private ISceneLoader _loadNextScene;
     private Vector3 _winImageStartPosition;
+
+    [SerializeField] private UnityEvent WinAnimationCompleted;
 
     private void OnEnable()
     {
@@ -30,7 +31,6 @@ public class WinAnimation : MonoBehaviour
 
     private void Start()
     {
-        _loadNextScene = GetComponent<ISceneLoader>();
         _winImageStartPosition = _winImage.transform.position;
     }
 
@@ -54,6 +54,6 @@ public class WinAnimation : MonoBehaviour
 
         yield return cameraMoveTween.WaitForCompletion();
 
-        _loadNextScene.Load();
+        WinAnimationCompleted?.Invoke();
     }
 }
