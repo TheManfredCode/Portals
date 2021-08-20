@@ -17,4 +17,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Graphics/Thaleah_PixelFont/Thaleah_Demo.unity
     guid: 180143f4a57f2124dae57257c95bc10a
+  - enabled: 1
+    path: Assets/Graphics/Simple Toon/Demo/Scenes/DemoScene1.unity
+    guid: f8d2c849252e54bd08b0c224ddb18cd7
+  - enabled: 1
+    path: Assets/Graphics/Simple Toon/Demo/Scenes/DemoScene2.unity
+    guid: 08dc1ccecf33249198ba2fe94fcfb8e0
+  - enabled: 1
+    path: Assets/Graphics/Simple Toon/Demo/Scenes/DemoScene3.unity
+    guid: 172a3bd741ad7437a8d5a4b4ee547c58
+  - enabled: 1
+    path: Assets/JMO Assets/Toony Colors Pro/Demo TCP2/Demo_TCP2_Cat.unity
+    guid: 8190b7623c4e288468b9dfc14d15ef9d
+  - enabled: 1
+    path: Assets/JMO Assets/Toony Colors Pro/Demo TCP2/Demo_TCP2_Hybrid_Shader.unity
+    guid: 1b24665ba666eb94eb7d5db08a6d8dec
+  - enabled: 1
+    path: Assets/JMO Assets/Toony Colors Pro/Demo TCP2/Demo_TCP2_PBS.unity
+    guid: 44c5a002521d9f945a33458b54a0e4a7
+  - enabled: 1
+    path: Assets/JMO Assets/Toony Colors Pro/Demo TCP2/Demo_TCP2_ShaderGenerator.unity
+    guid: 2a223e10c7007bf49b24af1d09c57259
+  - enabled: 1
+    path: Assets/JMO Assets/Toony Colors Pro/Demo TCP2/Demo_TCP2_ShaderGenerator_2.unity
+    guid: 5154041c5957dc74bae6169f084fb317
   m_configObjects: {}
