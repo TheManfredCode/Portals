@@ -13,10 +13,10 @@ public class CameraMover : MonoBehaviour
     {
         _direction.Normalize();
 
-        Move(0);
+        Move();
     }
 
-    public Tween Move(float delay)
+    public Tween Move(float delay = 0)
     {
         Vector3 targetPosition = transform.position + _direction * _moveDistance;
 

@@ -6,22 +6,13 @@ using UnityEngine.Events;
 
 public class RestartMenuAnimation : MonoBehaviour
 {
+    [SerializeField] private Animator _restartMenuAnimator;
     [SerializeField] private FailureConditions _failureConditions;
     [SerializeField] private ParticleSystem _failEffect;
     [SerializeField] private RestartMenu _restartMenu;
-    [SerializeField] private Transform[] _obectsToAnimate;
     [SerializeField] private CameraMover _cameraMover;
-    [SerializeField] private float _restartAnimationDuration;
-    [SerializeField] private float _restartMenuShowPositionY;
-
-    private Vector3 _restartMenuStartPosition;
 
     [SerializeField] private UnityEvent RestartAnimationCompleted;
-
-    private void Start()
-    {
-        _restartMenuStartPosition = _restartMenu.transform.position;
-    }
 
     private void OnEnable()
     {
@@ -38,26 +29,23 @@ public class RestartMenuAnimation : MonoBehaviour
     private void OnFailed()
     {
         _failEffect.Play();
-
-        float showFailImageDelay = 1;
-        _restartMenu.transform.DOMoveY(_restartMenuShowPositionY, _restartAnimationDuration).SetDelay(showFailImageDelay);
+        _restartMenu.gameObject.SetActive(true);
     }
 
     private void OnRestart()
     {
+        string triggerName = "CloseRestartMenu";
+
+        _restartMenuAnimator.SetTrigger(triggerName);
+
         StartCoroutine(RestartAnimationCorutine());
     }
 
     private IEnumerator RestartAnimationCorutine()
     {
-        foreach (Transform animatedObject in _obectsToAnimate)
-            animatedObject.DOScale(0, _restartAnimationDuration);
+        Tween cameraMoveTween = _cameraMover.Move(0);
 
-        _cameraMover.Move(0);
-
-        Tween restartMenuTween = _restartMenu.transform.DOMoveY(_restartMenuStartPosition.y, _restartAnimationDuration);
-
-        yield return restartMenuTween.WaitForCompletion();
+        yield return cameraMoveTween.WaitForCompletion();
 
         RestartAnimationCompleted?.Invoke();
     }

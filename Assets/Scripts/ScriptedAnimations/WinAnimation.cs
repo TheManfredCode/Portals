@@ -10,12 +10,8 @@ public class WinAnimation : MonoBehaviour
     [SerializeField] private WinCondition _winCondition;
     [SerializeField] private ParticleSystem _winParticles;
     [SerializeField] private CameraMover _cameraMover;
-    [SerializeField] private Image _winImage;
-    [SerializeField] private float _winImageShowPositionY;
-    [SerializeField] private float _winImageMoveDuration;
-    [SerializeField] private float _winImageShowTime;
-    
-    private Vector3 _winImageStartPosition;
+    [SerializeField] private float _moveCameraDelay;
+    [SerializeField] private Transform[] _objectsToMinimize;
 
     [SerializeField] private UnityEvent WinAnimationCompleted;
 
@@ -29,11 +25,6 @@ public class WinAnimation : MonoBehaviour
         _winCondition.Win -= OnWin;
     }
 
-    private void Start()
-    {
-        _winImageStartPosition = _winImage.transform.position;
-    }
-
     public void OnWin()
     {
         if(_winParticles != null)
@@ -44,13 +35,10 @@ public class WinAnimation : MonoBehaviour
 
     private IEnumerator WinAnimationCoroutine()
     {
-        Sequence winImageSequence = DOTween.Sequence();
+        foreach (Transform obj in _objectsToMinimize)
+            obj.DOScale(0, 0.5f);
 
-        winImageSequence.Append(_winImage.transform.DOMoveY(_winImageShowPositionY, _winImageMoveDuration));
-        winImageSequence.Append(_winImage.transform.DOMoveY(_winImageStartPosition.y, _winImageMoveDuration).SetDelay(_winImageShowTime));
-
-        float cameraMoveDelay = _winImageMoveDuration + _winImageShowTime;
-        Tween cameraMoveTween = _cameraMover.Move(cameraMoveDelay);
+        Tween cameraMoveTween = _cameraMover.Move(_moveCameraDelay);
 
         yield return cameraMoveTween.WaitForCompletion();
 
